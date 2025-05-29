@@ -8,8 +8,8 @@ try {
         // Monta a sintaxe SQL de busca
         $sql = "
             SELECT * 
-            FROM clientes
-            WHERE id_cliente = :id
+            FROM fornecedores
+            WHERE id_fornecedor = :id
         ";
 
         // Preparar a sintaxe SQL
@@ -17,22 +17,22 @@ try {
         // Vincular o parâmetro :id com o valor da variável $id
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     }
-    // Verifica se há um NOME na URL para consulta
-    elseif (isset($_GET["nome"]) && is_string($_GET["nome"])) {
-        $nome = $_GET["nome"];
+    // Verifica se há um RAZÃO SOCIAL na URL para consulta
+    elseif (isset($_GET["razao_social"]) && is_string($_GET["razao_social"])) {
+        $razao_social = $_GET["razao_social"];
 
         // Monta a sintaxe SQL de busca
         $sql = "
             SELECT * 
-            FROM clientes
-            WHERE nome LIKE :nome
-            ORDER BY nome
+            FROM fornecedores
+            WHERE razao_social LIKE :razao_social
+            ORDER BY razao_social
         ";
 
         // Preparar a sintaxe SQL
         $stmt = $conn->prepare($sql);
-        // Vincular o parâmetro :nome com o valor da variável $nome
-        $stmt->bindValue(':nome', '%' . $nome . '%', PDO::PARAM_STR);
+        // Vincular o parâmetro :razao_social com o valor da variável $razao_social
+        $stmt->bindValue(':razao_social', '%' . $razao_social . '%', PDO::PARAM_STR);
 
     }
     // Verifica se há uma Cidade na URL para consulta
@@ -42,9 +42,9 @@ try {
         // Monta a sintaxe SQL de busca
         $sql = "
             SELECT * 
-            FROM clientes
+            FROM fornecedores
             WHERE cidade LIKE :cidade
-            ORDER BY nome
+            ORDER BY razao_social
         ";
 
         // Preparar a sintaxe SQL
@@ -57,8 +57,8 @@ try {
         // Monta a sintaxe SQL de busca
         $sql = "
             SELECT * 
-            FROM clientes
-            ORDER BY nome
+            FROM fornecedores
+            ORDER BY razao_social
         ";
         
         // Preparar a sintaxe SQL

@@ -1,10 +1,16 @@
 <?php
 
+if (isset($key) && is_numeric($key)) {
+    $url = 'http://localhost:8080/clientes/?id=' . $key;
+} else {
+    $url = 'http://localhost:8080/clientes/';
+}
+
 // INICIAR SESSÃO GLOBAL
 $curl = curl_init();
 // CONFIGURAR O CURL
 curl_setopt_array($curl, array(
-    CURLOPT_URL => "http://localhost:8080/clientes/",
+    CURLOPT_URL => $url,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => 'GET',
