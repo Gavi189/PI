@@ -1,29 +1,29 @@
 <?php
 // CHAMA O ARQUIVO ABAIXO NESTA TELA
-include "/verificar-autenticacao.php";
+include "../verificar-autenticacao.php";
 
 // CARREGAR BIBLIOTECA MPDF
-require_once '/mpdf/vendor/autoload.php';
+require_once '../mpdf/vendor/autoload.php';
+
 $lista = "";
-require("/requests/clientes/get.php");
+require("../requests/fornecedores/get.php");
 if(!empty($response)) {
-    foreach($response["data"] as $key => $client) {
+    foreach($response["data"] as $key => $provider) {
         // .= ADICIONA ITENS NA VARIÁVEL $lista
         $lista .= '
         <tr>
-            <th style="border:1px solid black" scope="row">'.$client["id_cliente"].'</th>
-            <td style="border:1px solid black"><img src="imagens/'.$client["imagem"].'" width="100"></td>
-            <td style="border:1px solid black">'.$client["nome"].'</td>
-            <td style="border:1px solid black">'.$client["cpf"].'</td>
-            <td style="border:1px solid black">'.$client["email"].'</td>
-            <td style="border:1px solid black">'.$client["whatsapp"].'</td>
+            <th style="border:1px solid black" scope="row">'.$provider["id_fornecedor"].'</th>
+            <td style="border:1px solid black">'.$provider["razao_social"].'</td>
+            <td style="border:1px solid black">'.$provider["cnpj"].'</td>
+            <td style="border:1px solid black">'.$provider["email"].'</td>
+            <td style="border:1px solid black">'.$provider["telefone"].'</td>
         </tr>
         ';
     }
 } else {
     echo '
     <tr>
-        <td colspan="4">Nenhum cliente cadastrado</td>
+        <td colspan="5">Nenhum fornecedor cadastrado</td>
     </tr>
     ';
 }
@@ -49,18 +49,17 @@ $html = '
     </style>
 </head>
 <body>
-    <h1 style="text-align:center">Lista de Clientes</h1>
+    <h1 style="text-align:center">Lista de Fornecedores</h1>
     <p style="text-align:center">Data: '.date('d/m/Y').'</p>
-    <p style="text-align:center">Total de Clientes: '.count($response["data"]).'</p>
+    <p style="text-align:center">Total de Fornecedores: '.count($response["data"]).'</p>
     <table>
         <thead>
             <tr>
                 <th style="background:gray;font-weight:bold" scope="col">#</th>
-                <th style="background:gray;font-weight:bold;" scope="col">Imagem</th>
-                <th style="background:gray;font-weight:bold;width:300px" scope="col">Nome</th>
-                <th style="background:gray;font-weight:bold;width:100px" scope="col">CPF</th>
+                <th style="background:gray;font-weight:bold;width:280px" scope="col">Razão Social</th>
+                <th style="background:gray;font-weight:bold;width:120px" scope="col">CNPJ</th>
                 <th style="background:gray;font-weight:bold;width:250px" scope="col">E-mail</th>
-                <th style="background:gray;font-weight:bold;width:120px" scope="col">Whatsapp</th>
+                <th style="background:gray;font-weight:bold;width:120px" scope="col">Telefone</th>
             </tr>
         </thead>
         <tbody id="clientTableBody">

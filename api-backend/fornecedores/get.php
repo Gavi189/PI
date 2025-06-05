@@ -65,6 +65,7 @@ try {
         $stmt = $conn->prepare($sql);
     }
 
+    
     // Executar a sintaxe SQL
     $stmt->execute();
     // Obter os dados do banco de dados como objeto
@@ -74,6 +75,7 @@ try {
     if (empty($data)) {
         // Se o resultado for vazio, retorna um erro
         http_response_code(204);
+        exit;
     } else {
         // Organizar o endereço como objeto
         foreach ($data as $key => $cliente) {

@@ -6,7 +6,7 @@ try {
 
     // Verificar se existe informações de formulário
     if(!empty($postfields)) {
-        $id = $postfields['id_cliente'];
+        $id = $postfields['id_fornecedor'];
         $razao_social = $postfields['razao_social'] ?? null;
         $cnpj = $postfields['cnpj'] ?? null;
         $email = $postfields['email'] ?? null;
@@ -30,7 +30,7 @@ try {
         }
 
         $sql = "
-        UPDATE fornecedor SET 
+        UPDATE fornecedores SET 
             razao_social = :razao_social, 
             cnpj = :cnpj, 
             email = :email,

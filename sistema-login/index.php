@@ -43,6 +43,18 @@ $pagina = "home";
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <i class="bi bi-buildings" style="font-size: 2rem;"></i>
+                                <h5 class="card-title mt-2">Fornecedores
+                                    (<?php echo isset($_SESSION["fornecedores"]) ? count($_SESSION["fornecedores"]) : 0;?>)</h5>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="<?php echo $_SESSION["url"];?>/fornecedores" class="btn btn-primary">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

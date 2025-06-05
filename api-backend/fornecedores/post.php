@@ -28,7 +28,6 @@ try {
         INSERT INTO fornecedores (razao_social, cnpj, email, telefone, logradouro, numero, complemento, bairro, cidade, estado, cep) VALUES 
         (
             :razao_social, 
-            :cpf,
             :cnpj,
             :email,
             :telefone,
