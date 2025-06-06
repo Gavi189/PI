@@ -36,7 +36,8 @@ $pagina = "home";
                             <div class="card-body text-center">
                                 <i class="bi bi-people" style="font-size: 2rem;"></i>
                                 <h5 class="card-title mt-2">Clientes
-                                    (<?php echo isset($_SESSION["clientes"]) ? count($_SESSION["clientes"]) : 0;?>)</h5>
+                                    <?php require("requests/clientes/get.php"); ?>
+                                    (<?php echo isset($response['data']) ? count($response['data']) : 0;?>)</h5>
                             </div>
                             <div class="card-footer text-center">
                                 <a href="<?php echo $_SESSION["url"];?>/clientes" class="btn btn-primary">Acessar</a>
@@ -48,10 +49,24 @@ $pagina = "home";
                             <div class="card-body text-center">
                                 <i class="bi bi-buildings" style="font-size: 2rem;"></i>
                                 <h5 class="card-title mt-2">Fornecedores
-                                    (<?php echo isset($_SESSION["fornecedores"]) ? count($_SESSION["fornecedores"]) : 0;?>)</h5>
+                                    <?php require("requests/fornecedores/get.php"); ?>
+                                    (<?php echo isset($response['data']) ? count($response['data']) : 0;?>)</h5>
                             </div>
                             <div class="card-footer text-center">
                                 <a href="<?php echo $_SESSION["url"];?>/fornecedores" class="btn btn-primary">Acessar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <i class="bi bi-gift" style="font-size: 2rem;"></i>
+                                <h5 class="card-title mt-2">Produtos
+                                    <?php require("requests/produtos/get.php"); ?>
+                                    (<?php echo isset($response['data']) ? count($response['data']) : 0;?>)</h5>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="<?php echo $_SESSION["url"];?>/produtos" class="btn btn-primary">Acessar</a>
                             </div>
                         </div>
                     </div>

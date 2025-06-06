@@ -21,6 +21,7 @@ if (isset($_GET["key"])) {
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +29,7 @@ if (isset($_GET["key"])) {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <?php
     include "../mensagens.php";
@@ -46,11 +48,13 @@ if (isset($_GET["key"])) {
                 <form id="productForm" action="/produtos/cadastrar.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="productId" class="form-label">Código do Produto</label>
-                        <input type="text" class="form-control" id="productId" name="productId" readonly value="<?php echo isset($product) ? $product["id_produto"] : ""; ?>">
+                        <input type="text" class="form-control" id="productId" name="productId" readonly
+                            value="<?php echo isset($product) ? $product["id_produto"] : ""; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="productName" class="form-label">Produto</label>
-                        <input type="text" class="form-control" id="productName" name="productName" required value="<?php echo isset($product) ? $product["produto"] : ""; ?>">
+                        <input type="text" class="form-control" id="productName" name="productName" required
+                            value="<?php echo isset($product) ? $product["produto"] : ""; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="brandId" class="form-label">Marca</label>
@@ -70,11 +74,13 @@ if (isset($_GET["key"])) {
                     </div>
                     <div class="mb-3">
                         <label for="productQuantity" class="form-label">Quantidade</label>
-                        <input type="number" min="0" class="form-control" id="productQuantity" name="productQuantity" required value="<?php echo isset($product) ? $product["quantidade"] : ""; ?>">
+                        <input type="number" min="0" class="form-control" id="productQuantity" name="productQuantity"
+                            required value="<?php echo isset($product) ? $product["quantidade"] : ""; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="productPrice" class="form-label">Preço</label>
-                        <input type="number" class="form-control" id="productPrice" name="productPrice" required value="<?php echo isset($product) ? $product["preco"] : ""; ?>">
+                        <input type="number" class="form-control" id="productPrice" name="productPrice" required
+                            value="<?php echo isset($product) ? $product["preco"] : ""; ?>">
                     </div>
                     <div class="mb-3">
                         <label for="productImage" class="form-label">Imagem do Produto</label>
@@ -93,7 +99,8 @@ if (isset($_GET["key"])) {
                     ?>
                     <div class="mb-3">
                         <label for="productDescription" class="form-label">Descrição</label>
-                        <textarea class="form-control" id="productDescription" name="productDescription" rows="3" required><?php echo isset($product) ? $product["descricao"] : ""; ?></textarea>
+                        <textarea class="form-control" id="productDescription" name="productDescription" rows="3"
+                            required><?php echo isset($product) ? $product["descricao"] : ""; ?></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
@@ -111,10 +118,10 @@ if (isset($_GET["key"])) {
                             <th scope="col">#</th>
                             <th scope="col">Imagem</th>
                             <th scope="col">Produto</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col">Quantidade</th>
-                            <th scope="col">Preço</th>
-                            <th scope="col">Ações</th>
+                            <th scope="col" class="text-center">Marca</th>
+                            <th scope="col" class="text-center">Quantidade</th>
+                            <th scope="col" class="text-center">Preço</th>
+                            <th scope="col" class="text-center">Ações</th>
                         </tr>
                     </thead>
                     <tbody id="productTableBody">
@@ -131,9 +138,9 @@ if (isset($_GET["key"])) {
                                         <img src="/produtos/imagens/'.$product["imagem"].'" alt="Imagem do Produto" class="img-thumbnail" style="max-width: 100px;">
                                     </td>
                                     <td>'.$product["produto"].'</td>
-                                    <td>'.$product["marca"].'</td>
-                                    <td>'.$product["quantidade"].'</td>
-                                    <td>'.number_format($product["preco"],2,',','.').'</td>
+                                    <td class="text-center">'.$product["marca"].'</td>
+                                    <td class="text-center">'.$product["quantidade"].'</td>
+                                    <td class="text-center">R$ '.number_format($product["preco"],2,',','.').'</td>
                                     <td>
                                         <a href="/produtos/?key='.$product["id_produto"].'" class="btn btn-warning">Editar</a>
                                         <a href="/produtos/remover.php?key='.$product["id_produto"].'" class="btn btn-danger">Excluir</a>
@@ -163,4 +170,5 @@ if (isset($_GET["key"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
 </body>
+
 </html>

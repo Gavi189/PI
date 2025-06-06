@@ -46,7 +46,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (3,'mariano lopes',NULL,'18',NULL,NULL,'Rua adélia david santos','158','','','Taubaté','12051-447',NULL),(4,'Ana Maria Braga',NULL,'80',NULL,NULL,'Rua do Sol','101','','Leblon','Rio de Janeiro','34567-890',NULL),(5,'João Silva',NULL,'25',NULL,NULL,'Rua das Palmeiras','45','Apto 101','Centro','São Paulo','01001-000',NULL),(6,'Maria Oliveira',NULL,'30',NULL,NULL,'Avenida Brasil','500','','Jardim América','Rio de Janeiro','20031-000',NULL),(7,'Carlos Pereira',NULL,'40',NULL,NULL,'Rua das Acácias','78','','Bela Vista','Curitiba','80010-000',NULL),(8,'Ana Costa',NULL,'35',NULL,NULL,'Rua do Comércio','120','Bloco B','Centro','Belo Horizonte','30110-000',NULL),(9,'Pedro Santos',NULL,'28',NULL,NULL,'Rua das Laranjeiras','90','','Jardim Botânico','Porto Alegre','90010-000',NULL),(10,'Fernanda Lima',NULL,'22',NULL,NULL,'Rua das Rosas','15','','Vila Mariana','São Paulo','04001-000',NULL),(11,'RICARDO',NULL,'23',NULL,NULL,'Rua eusebio marcondes','123','casa','Centro','Taubaté','SP','12'),(13,'Glauco Luiz','52fcd6cbec2f348c7b776c96b129688a.jpg','123.456.789-10','glauco@senac.com.br','(12) 3 4567-8900','Avenida Doutor José Getúlio Monteiro','432432','casa','Vila Rezende','Taubaté','12052-150','SP');
+INSERT INTO `clientes` VALUES (3,'mariano lopes',NULL,'18',NULL,NULL,'Rua adélia david santos','158','','','Taubaté','12051-447',NULL),(4,'Ana Maria Braga',NULL,'80',NULL,NULL,'Rua do Sol','101','','Leblon','Rio de Janeiro','34567-890',NULL),(5,'João Silva',NULL,'25',NULL,NULL,'Rua das Palmeiras','45','Apto 101','Centro','São Paulo','01001-000',NULL),(6,'Maria Oliveira',NULL,'30',NULL,NULL,'Avenida Brasil','500','','Jardim América','Rio de Janeiro','20031-000',NULL),(7,'Carlos Pereira',NULL,'40',NULL,NULL,'Rua das Acácias','78','','Bela Vista','Curitiba','80010-000',NULL),(9,'Pedro Santos',NULL,'28',NULL,NULL,'Rua das Laranjeiras','90','','Jardim Botânico','Porto Alegre','90010-000',NULL),(10,'Fernanda Lima',NULL,'22',NULL,NULL,'Rua das Rosas','15','','Vila Mariana','São Paulo','04001-000',NULL),(11,'RICARDO',NULL,'23',NULL,NULL,'Rua eusebio marcondes','123','casa','Centro','Taubaté','SP','12'),(13,'Glauco Luiz','52fcd6cbec2f348c7b776c96b129688a.jpg','123.456.789-10','glauco@senac.com.br','(12) 3 4567-8900','Avenida Doutor José Getúlio Monteiro','432432','casa','Vila Rezende','Taubaté','12052-150','SP');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,4 +175,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-05 17:08:28
+-- Dump completed on 2025-06-06 17:15:27

@@ -10,7 +10,15 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link <?php echo $pagina == "clientes" ? 'active' : ''; ?>"
-                        href="<?php echo $_SESSION["url"];?>/clientes">Clientes</a>
+                        href="<?php echo $_SESSION["url"];?>/clientes/">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo $pagina == "fornecedores" ? 'active' : ''; ?>"
+                        href="<?php echo $_SESSION["url"];?>/fornecedores/">Fornecedores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo $pagina == "produtos" ? 'active' : ''; ?>"
+                        href="<?php echo $_SESSION["url"];?>/produtos/">Produtos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo $pagina == "contato" ? 'active' : ''; ?>"
