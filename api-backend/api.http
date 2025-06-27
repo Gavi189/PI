@@ -1,0 +1,22 @@
+@base = http://localhost:8080
+
+### Request OK
+GET {{base}}
+
+### - Page not Found
+GET {{base}}/qualquercoisa
+
+###
+GET {{base}}/usuarios
+
+### - 
+POST {{base}}/usuarios
+Content-Type: application/json
+
+
+
+###
+DELETE {{base}}/usuarios?id=4
+
+###
+PATCH  {{base}}/usuarios
