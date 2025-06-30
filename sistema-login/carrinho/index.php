@@ -42,23 +42,19 @@ $pagina = "carrinho";
                             <tbody>
                                 <?php
                                 require("../requests/carrinho/get.php");
+                                var_dump($response);exit;
                                 if (!empty($response['data']['items'])) {
                                     foreach ($response['data']['items'] as $item) {
-                                        $cliente_sql = "SELECT nome FROM clientes WHERE id_cliente = :id_cliente";
-                                        $cliente_stmt = $conn->prepare($cliente_sql);
-                                        $cliente_stmt->bindParam(':id_cliente', $item['id_cliente'], PDO::PARAM_INT);
-                                        $cliente_stmt->execute();
-                                        $cliente = $cliente_stmt->fetch(PDO::FETCH_OBJ);
                                         echo '
                                         <tr>
-                                            <td>' . $item['id_carrinho'] . '</td>
-                                            <td>' . ($cliente ? $cliente->nome : 'Desconhecido') . '</td>
-                                            <td>' . $item['produto'] . '</td>
-                                            <td>' . $item['quantidade'] . '</td>
-                                            <td>R$ ' . number_format($item['preco'] * $item['quantidade'], 2, ',', '.') . '</td>
+                                            <td>' . htmlspecialchars($item['id_carrinho'] ?? '') . '</td>
+                                            <td>' . htmlspecialchars($item['cliente_nome'] ?? 'Desconhecido') . '</td>
+                                            <td>' . htmlspecialchars($item['produto'] ?? '') . '</td>
+                                            <td>' . htmlspecialchars($item['quantidade'] ?? 0) . '</td>
+                                            <td>R$ ' . number_format($item['preco_total'] ?? 0, 2, ',', '.') . '</td>
                                             <td>
-                                                <a href="/carrinho/formulario.php?key=' . $item['id_carrinho'] . '" class="btn btn-warning">Editar</a>
-                                                <a href="/carrinho/remover.php?id_cliente=' . $item['id_cliente'] . '&id_produto=' . $item['id_produto'] . '" class="btn btn-danger">Excluir</a>
+                                                <a href="/carrinho/formulario.php?key=' . htmlspecialchars($item['id_carrinho'] ?? '') . '" class="btn btn-warning">Editar</a>
+                                                <a href="/carrinho/remover.php?id_cliente=' . htmlspecialchars($item['id_cliente'] ?? '') . '&id_produto=' . htmlspecialchars($item['id_produto'] ?? '') . '" class="btn btn-danger">Excluir</a>
                                             </td>
                                         </tr>
                                         ';
@@ -82,6 +78,32 @@ $pagina = "carrinho";
         language: {
             url: 'https://cdn.datatables.net/plug-ins/2.3.2/i18n/pt-BR.json'
         },
+        columns: [{
+                data: 'id_carrinho'
+            },
+            {
+                data: 'cliente_nome',
+                defaultContent: 'Desconhecido'
+            },
+            {
+                data: 'produto'
+            },
+            {
+                data: 'quantidade'
+            },
+            {
+                data: 'preco_total',
+                render: function(data) {
+                    return 'R$ ' + (parseFloat(data) || 0).toFixed(2).replace('.', ',');
+                }
+            },
+            {
+                data: null,
+                orderable: false,
+                searchable: false
+            }
+        ],
+        data: <?php echo json_encode($response['data']['items'] ?? []); ?>
     });
     </script>
 </body>

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Heather = () => {
   return (
     <header className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg">
@@ -24,12 +26,12 @@ const Heather = () => {
               </a>
             </li>
             <li>
-              <a
-                href="/produtos"
+              <Link
+                href="/product"
                 className="hover:text-indigo-400 transition-colors duration-200"
               >
                 Produtos
-              </a>
+              </Link>
             </li>
             <li>
               <a
@@ -45,6 +47,14 @@ const Heather = () => {
                 className="hover:text-indigo-400 transition-colors duration-200"
               >
                 Contato
+              </a>
+            </li>
+            <li>
+              <a
+                href="/cart"
+                className="hover:text-indigo-400 transition-colors duration-200"
+              >
+                Carrinho
               </a>
             </li>
           </ul>
