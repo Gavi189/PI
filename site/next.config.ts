@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  
-};
+const nextConfig: NextConfig = {};
 
 module.exports = {
   images: {
@@ -13,8 +11,14 @@ module.exports = {
         port: "",
         pathname: "/**",
       },
-    ]
-  }
-}
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8081",
+        pathname: "/**", // Adjust the pathname as needed
+      },
+    ],
+  },
+};
 
 export default nextConfig;

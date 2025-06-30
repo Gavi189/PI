@@ -3,7 +3,7 @@
 // AS DEFINIÇÕES DE CABEÇALHO E CONFIGURAÇÕES DE ACESSO
 require_once './headers.php';
 
-$recursos = ["clientes", "fornecedores", "marcas", "produtos", "usuarios"];
+$recursos = ["carrinho", "clientes", "fornecedores", "marcas", "produtos", "usuarios"];
 $url = explode("/",$_SERVER['REQUEST_URI'])[1];
 
 try {

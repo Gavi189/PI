@@ -160,6 +160,18 @@ CREATE TABLE `usuarios` (
 -- Dumping data for table `usuarios`
 --
 
+CREATE TABLE `carrinho` (
+       `id_carrinho` int(11) NOT NULL AUTO_INCREMENT,
+       `id_cliente` int(11) NOT NULL,
+       `id_produto` int(11) NOT NULL,
+       `quantidade` int(11) NOT NULL,
+       PRIMARY KEY (`id_carrinho`),
+       KEY `id_cliente` (`id_cliente`),
+       KEY `id_produto` (`id_produto`),
+       CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
+       CONSTRAINT `carrinho_ibfk_2` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id_produto`)
+     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` VALUES (1,'Glauco Luiz','glauco@senac.com.br','7110eda4d09e062aa5e4a390b0a572ac0d2c0220'),(3,'Gabriel','gavi@email.com','8a2fbfe46f7e62f3a31d175d7c995bd89fc5c6bc');

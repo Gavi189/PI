@@ -21,6 +21,10 @@
                         href="<?php echo $_SESSION["url"];?>/produtos/">Produtos</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?php echo $pagina == "carrinho" ? 'active' : ''; ?>"
+                        href="<?php echo $_SESSION["url"];?>/carrinho/">Carrinho</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link <?php echo $pagina == "contato" ? 'active' : ''; ?>"
                         href="<?php echo $_SESSION["url"];?>/contato.php">Contato</a>
                 </li>
