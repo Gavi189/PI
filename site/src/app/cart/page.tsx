@@ -9,35 +9,34 @@ import CartList from "@/components/layout/cart/cart-list";
 
 const CartPage = () => {
   const [cart, setCart] = useState<ICart>({ items: [], total: 0 });
-  const id_cliente = 3; // Hardcoded for testing; replace with dynamic client ID from auth
+  const id_cliente = 3;
 
   useEffect(() => {
     const loadCart = async () => {
-      const data = await fetchCart(id_cliente);
-      setCart({
-        items: data.items || [],
-        total: data.total || 0,
-      });
+      const cartData = await fetchCart(id_cliente);
+      setCart(cartData);
     };
     loadCart();
-  }, []);
+  }, [id_cliente]);
 
-  const handleUpdateQuantity = async (productId: number, quantity: number) => {
-    await updateCartQuantity(id_cliente, productId, quantity);
-    const data = await fetchCart(id_cliente);
-    setCart({
-      items: data.items || [],
-      total: data.total || 0,
-    });
+  const handleUpdateQuantity = async (productId: number, delta: number) => {
+    try {
+      await updateCartQuantity(id_cliente, productId, delta);
+      const cartData = await fetchCart(id_cliente);
+      setCart(cartData);
+    } catch (error) {
+      console.error("Erro ao atualizar quantidade:", error);
+    }
   };
 
   const handleRemove = async (productId: number) => {
-    await removeFromCart(id_cliente, productId);
-    const data = await fetchCart(id_cliente);
-    setCart({
-      items: data.items || [],
-      total: data.total || 0,
-    });
+    try {
+      await removeFromCart(id_cliente, productId);
+      const cartData = await fetchCart(id_cliente);
+      setCart(cartData);
+    } catch (error) {
+      console.error("Erro ao remover item:", error);
+    }
   };
 
   return (

@@ -5,7 +5,7 @@ export const addToCart = async (
   id_cliente: number,
   quantidade: number
 ): Promise<boolean> => {
-  const response = await fetch("http://localhost:8080/carrinho/", {
+  const response = await fetch("http://localhost:8080/carrinho/post.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

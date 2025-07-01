@@ -2,14 +2,12 @@
 include "../verificar-autenticacao.php";
 $pagina = "carrinho";
 
+$cart_item = null;
 if (isset($_GET["key"])) {
     $key = $_GET["key"];
     require("../requests/carrinho/get.php");
-    $key = null;
-    if (isset($response["data"]["items"]) && !empty($response["data"]["items"])) {
-        $cart_item = $response["data"]["items"][0];
-    } else {
-        $cart_item = null;
+    if (!empty($response['data']['items'])) {
+        $cart_item = $response['data']['items'][0];
     }
 }
 ?>
@@ -73,12 +71,13 @@ if (isset($_GET["key"])) {
                                         <select class="form-select" id="id_produto" name="id_produto" required>
                                             <option value="">Selecione um produto</option>
                                             <?php
-                                            require("../requests/carrinho/get.php");
-                                            if (!empty($response['data'])) {
-                                                foreach ($response['data'] as $produto) {
-                                                    $selected = (isset($cart_item) && $cart_item['id_produto'] == $produto['id_produto']) ? 'selected' : '';
-                                                    echo '<option value="' . $produto['id_produto'] . '" ' . $selected . '>' . $produto['produto'] . '</option>';
-                                                }
+                                            $produto_sql = "SELECT id_produto, produto FROM produtos ORDER BY produto";
+                                            $produto_stmt = $conn->prepare($produto_sql);
+                                            $produto_stmt->execute();
+                                            $produtos = $produto_stmt->fetchAll(PDO::FETCH_OBJ);
+                                            foreach ($produtos as $produto) {
+                                                $selected = (isset($cart_item) && isset($cart_item['produtos']) && in_array($produto->id_produto, array_column($cart_item['produtos'], 'id_produto'))) ? 'selected' : '';
+                                                echo '<option value="' . $produto->id_produto . '" ' . $selected . '>' . $produto->produto . '</option>';
                                             }
                                             ?>
                                         </select>
@@ -89,7 +88,7 @@ if (isset($_GET["key"])) {
                                         <label for="quantidade" class="form-label">Quantidade</label>
                                         <input type="number" min="1" class="form-control" id="quantidade"
                                             name="quantidade" required
-                                            value="<?php echo isset($cart_item) ? $cart_item['quantidade'] : ''; ?>">
+                                            value="<?php echo isset($cart_item) && isset($cart_item['produtos'][0]) ? $cart_item['produtos'][0]['quantidade'] : ''; ?>">
                                     </div>
                                 </div>
                             </div>

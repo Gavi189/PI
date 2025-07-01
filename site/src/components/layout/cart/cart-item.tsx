@@ -1,63 +1,52 @@
 "use client";
 
 import { ICartItem } from "@/interfaces/ICart";
-import Image from "next/image";
-import { useState } from "react";
 
 interface CartItemProps {
   item: ICartItem;
-  onUpdateQuantity: (productId: number, quantity: number) => void;
+  onUpdateQuantity: (productId: number, delta: number) => void;
   onRemove: (productId: number) => void;
 }
 
-const CartItem = ({ item, onUpdateQuantity, onRemove }: CartItemProps) => {
-  const [quantity, setQuantity] = useState(item.quantity);
-
-  const handleQuantityChange = (newQuantity: number) => {
-    if (newQuantity >= 1) {
-      setQuantity(newQuantity);
-      onUpdateQuantity(item.product.id_produto, newQuantity);
+const CartItem: React.FC<CartItemProps> = ({
+  item,
+  onUpdateQuantity,
+  onRemove,
+}) => {
+  const handleQuantityChange = async (delta: number) => {
+    try {
+      const newQuantity = item.quantity + delta;
+      if (newQuantity >= 0) {
+        await onUpdateQuantity(item.product.id_produto, delta);
+      } else {
+        await onRemove(item.product.id_produto);
+      }
+    } catch (error) {
+      console.error("Falha ao atualizar quantidade:", error);
+      alert("Erro ao atualizar a quantidade. Verifique o console.");
     }
   };
 
   return (
-    <div className="flex items-center border-b border-gray-200 py-4">
-      <div className="relative h-24 w-24">
-        <Image
-          src={`http://localhost:8081/produtos/imagens/${item.product.imagem}`}
-          alt={item.product.produto}
-          fill
-          sizes="100%"
-          className="object-cover border border-gray-300"
-        />
-      </div>
-      <div className="flex-1 ml-4">
-        <h3 className="text-lg font-semibold">{item.product.produto}</h3>
-        <p className="text-gray-600">{item.product.marca}</p>
-        <p className="text-gray-600">R$ {item.product.preco}</p>
-      </div>
-      <div className="flex items-center gap-2">
+    <div className="flex items-center justify-between py-2 border-b">
+      <span>
+        {item.product.produto} (x{item.quantity}) - R${" "}
+        {(item.product.preco! * item.quantity).toFixed(2)}
+      </span>
+      <div className="flex gap-2">
         <button
-          onClick={() => handleQuantityChange(quantity - 1)}
-          className="border border-gray-300 px-2 py-1 text-lg"
+          onClick={() => handleQuantityChange(-1)}
+          className="border px-2"
         >
           -
         </button>
-        <span className="w-12 text-center">{quantity}</span>
-        <button
-          onClick={() => handleQuantityChange(quantity + 1)}
-          className="border border-gray-300 px-2 py-1 text-lg"
-        >
+        <span>{item.quantity}</span>
+        <button onClick={() => handleQuantityChange(1)} className="border px-2">
           +
         </button>
-      </div>
-      <div className="ml-4">
-        <p className="text-lg font-semibold">
-          R$ {item.product.preco * quantity}
-        </p>
         <button
           onClick={() => onRemove(item.product.id_produto)}
-          className="text-red-500 hover:underline mt-2"
+          className="border px-2 text-red-500"
         >
           Remover
         </button>

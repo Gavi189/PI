@@ -9,25 +9,24 @@ interface CartListProps {
   onRemove: (productId: number) => void;
 }
 
-const CartList = ({ cart, onUpdateQuantity, onRemove }: CartListProps) => {
+const CartList: React.FC<CartListProps> = ({
+  cart,
+  onUpdateQuantity,
+  onRemove,
+}) => {
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-4">
+    <div>
       {cart.items.length === 0 ? (
-        <p className="text-center text-gray-600">Seu carrinho está vazio.</p>
+        <p>O carrinho está vazio.</p>
       ) : (
-        <div>
-          {cart.items.map((item) => (
-            <CartItem
-              key={item.product.id_produto}
-              item={item}
-              onUpdateQuantity={onUpdateQuantity}
-              onRemove={onRemove}
-            />
-          ))}
-          <div className="mt-4 text-right">
-            <p className="text-xl font-semibold">Total: R$ {cart.total}</p>
-          </div>
-        </div>
+        cart.items.map((item, index) => (
+          <CartItem
+            key={`${item.product.id_produto}-${index}`} // Chave única combinando id_produto e índice
+            item={item}
+            onUpdateQuantity={onUpdateQuantity}
+            onRemove={onRemove}
+          />
+        ))
       )}
     </div>
   );

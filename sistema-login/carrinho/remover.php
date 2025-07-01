@@ -5,6 +5,6 @@ if (isset($_GET['id_cliente']) && isset($_GET['id_produto'])) {
     require("../requests/carrinho/delete.php");
     $_SESSION["msg"] = $response["message"];
 }
-header("Location: ./");
+header("Location: ./index.php");
 exit;
 ?>

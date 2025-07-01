@@ -1,8 +1,14 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {};
-
-module.exports = {
+const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://localhost:8080/:path*",
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
@@ -15,7 +21,7 @@ module.exports = {
         protocol: "http",
         hostname: "localhost",
         port: "8081",
-        pathname: "/**", // Adjust the pathname as needed
+        pathname: "/**",
       },
     ],
   },

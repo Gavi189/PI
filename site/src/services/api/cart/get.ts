@@ -1,19 +1,8 @@
-import { ICart } from "@/interfaces/ICart";
-
-interface CartItemResponse {
-  id_produto: number;
-  produto: string;
-  descricao: string;
-  id_marca: number;
-  imagem: string;
-  preco: number;
-  marca: string;
-  quantidade: number;
-}
+import { CartItemResponse, CartResponse, ICart } from "@/interfaces/ICart";
 
 export const fetchCart = async (id_cliente: number): Promise<ICart> => {
   const response = await fetch(
-    `http://localhost:8080/carrinho?id_cliente=${id_cliente}`,
+    `/api/carrinho/get.php?id_cliente=${id_cliente}`,
     {
       method: "GET",
       headers: {
@@ -21,20 +10,23 @@ export const fetchCart = async (id_cliente: number): Promise<ICart> => {
       },
     }
   );
-  const data = await response.json();
+  const data: CartResponse = await response.json();
+  if (data.status !== "success") throw new Error(data.message);
   return {
-    items: data.data.items.map((item: CartItemResponse) => ({
-      product: {
-        id_produto: item.id_produto,
-        produto: item.produto,
-        descricao: item.descricao,
-        id_marca: item.id_marca,
-        imagem: item.imagem,
-        preco: item.preco,
-        marca: item.marca,
-      },
-      quantity: item.quantidade,
-    })),
+    items: data.data.items.flatMap((item) =>
+      item.produtos.map((p: CartItemResponse) => ({
+        product: {
+          id_produto: p.id_produto,
+          produto: p.produto,
+          descricao: p.descricao,
+          id_marca: p.id_marca,
+          imagem: p.imagem,
+          preco: p.preco,
+          marca: p.marca,
+        },
+        quantity: p.quantidade,
+      }))
+    ),
     total: data.data.total,
   };
 };

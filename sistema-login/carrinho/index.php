@@ -32,9 +32,10 @@ $pagina = "carrinho";
                             <thead>
                                 <tr>
                                     <th scope="col">ID Carrinho</th>
+                                    <th scope="col">Data</th>
                                     <th scope="col">Cliente</th>
-                                    <th scope="col">Produto</th>
-                                    <th scope="col">Quantidade</th>
+                                    <th scope="col">Produtos</th>
+                                    <th scope="col">Quantidade Total</th>
                                     <th scope="col">Preço Total</th>
                                     <th scope="col">Ações</th>
                                 </tr>
@@ -42,25 +43,35 @@ $pagina = "carrinho";
                             <tbody>
                                 <?php
                                 require("../requests/carrinho/get.php");
-                                var_dump($response);exit;
+                                if (isset($_GET['debug'])) {
+                                    echo "<pre>";
+                                    var_dump($response);
+                                    echo "</pre>";
+                                }
                                 if (!empty($response['data']['items'])) {
                                     foreach ($response['data']['items'] as $item) {
+                                        $quantidade_total = array_sum(array_column($item['produtos'], 'quantidade'));
                                         echo '
                                         <tr>
                                             <td>' . htmlspecialchars($item['id_carrinho'] ?? '') . '</td>
+                                            <td>' . htmlspecialchars($item['data'] ?? '') . '</td>
                                             <td>' . htmlspecialchars($item['cliente_nome'] ?? 'Desconhecido') . '</td>
-                                            <td>' . htmlspecialchars($item['produto'] ?? '') . '</td>
-                                            <td>' . htmlspecialchars($item['quantidade'] ?? 0) . '</td>
+                                            <td>';
+                                        foreach ($item['produtos'] as $produto) {
+                                            echo htmlspecialchars($produto['produto']) . ' (x' . $produto['quantidade'] . '), ';
+                                        }
+                                        echo '</td>
+                                            <td>' . htmlspecialchars($quantidade_total) . '</td>
                                             <td>R$ ' . number_format($item['preco_total'] ?? 0, 2, ',', '.') . '</td>
                                             <td>
-                                                <a href="/carrinho/formulario.php?key=' . htmlspecialchars($item['id_carrinho'] ?? '') . '" class="btn btn-warning">Editar</a>
-                                                <a href="/carrinho/remover.php?id_cliente=' . htmlspecialchars($item['id_cliente'] ?? '') . '&id_produto=' . htmlspecialchars($item['id_produto'] ?? '') . '" class="btn btn-danger">Excluir</a>
+                                                <a href="/carrinho/formulario.php?key=' . htmlspecialchars($item['id_carrinho'] ?? '') . '" class="btn btn-warning btn-sm">Editar</a>
+                                                <a href="/carrinho/remover.php?id_cliente=' . htmlspecialchars($item['id_cliente'] ?? '') . '&id_produto=' . htmlspecialchars($item['produtos'][0]['id_produto'] ?? '') . '" class="btn btn-danger btn-sm">Excluir</a>
                                             </td>
                                         </tr>
                                         ';
                                     }
                                 } else {
-                                    echo '<tr><td colspan="6">Nenhum item no carrinho</td></tr>';
+                                    echo '<tr><td colspan="7">Nenhum item no carrinho ou erro: ' . htmlspecialchars($response['message'] ?? 'Sem dados') . '</td></tr>';
                                 }
                                 ?>
                             </tbody>
@@ -82,14 +93,23 @@ $pagina = "carrinho";
                 data: 'id_carrinho'
             },
             {
+                data: 'data'
+            },
+            {
                 data: 'cliente_nome',
                 defaultContent: 'Desconhecido'
             },
             {
-                data: 'produto'
+                data: 'produtos',
+                render: function(data) {
+                    return data.map(p => p.produto + ' (x' + p.quantidade + ')').join(', ');
+                }
             },
             {
-                data: 'quantidade'
+                data: 'produtos',
+                render: function(data) {
+                    return data.reduce((sum, p) => sum + p.quantidade, 0);
+                }
             },
             {
                 data: 'preco_total',
