@@ -1,11 +1,14 @@
 <?php
+if (!session_id()) {
+    session_start();
+}
+// Caminho absoluto temporário - ajuste conforme necessário
+include "C:/Next/PI/sistema-login/verificar-autenticacao.php";
 
-$id_cliente = $_GET['id_cliente'] ?? 'all';
-$url = 'http://localhost:8080/carrinho/get.php?id_cliente=' . $id_cliente;
+$url = 'http://localhost:8080/carrinho/get.php?id_cliente=all';
 
 // Inicializa a sessão cURL
 $curl = curl_init();
-// Configura as opções do cURL
 curl_setopt_array($curl, array(
     CURLOPT_URL => $url,
     CURLOPT_RETURNTRANSFER => true,
@@ -13,13 +16,11 @@ curl_setopt_array($curl, array(
     CURLOPT_CUSTOMREQUEST => 'GET',
     CURLOPT_HTTPHEADER => array(
         'Content-Type: application/json',
-        'Authorization: Bearer ' . ($_SESSION['token'] ?? '') // Adiciona token se necessário
+        'Authorization: Bearer ' . ($_SESSION['token'] ?? '')
     ),
 ));
-// Executa a requisição cURL
 $response = curl_exec($curl);
 
-// Verifica erros
 if ($response === false) {
     $error = curl_error($curl);
     $response = [
@@ -35,15 +36,9 @@ if ($response === false) {
             'message' => 'Erro ao decodificar JSON: ' . json_last_error_msg(),
             'data' => []
         ];
-    } elseif (isset($response['data']['items']) && !empty($response['data']['items'])) {
-        foreach ($response['data']['items'] as &$item) {
-            $item['preco_total'] = $item['preco'] * $item['quantidade'];
-        }
-        $response['data']['total'] = array_sum(array_map(function($item) {
-            return $item['preco'] * $item['quantidade'];
-        }, $response['data']['items']));
+    } else {
+        error_log("Resposta da API: " . var_export($response, true)); // Log para depuração
     }
 }
-// Encerra a sessão cURL
 curl_close($curl);
 ?>

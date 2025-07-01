@@ -17,7 +17,6 @@ if (empty($id_cliente) || empty($id_produto) || empty($quantidade) || !is_numeri
     exit;
 }
 
-// Verificar se o carrinho existe para o cliente
 $sql_check = "SELECT id_carrinho FROM carrinhos WHERE id_cliente = :id_cliente";
 $stmt_check = $conn->prepare($sql_check);
 $stmt_check->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
@@ -32,7 +31,6 @@ if (!$carrinho) {
 
 $id_carrinho = $carrinho->id_carrinho;
 
-// Obter a quantidade atual para o produto
 $sql_get_qty = "SELECT COALESCE(SUM(qtde), 0) as total_quantidade FROM rl_carrinho_produto WHERE id_carrinho = :id_carrinho AND id_produto = :id_produto";
 $stmt_get_qty = $conn->prepare($sql_get_qty);
 $stmt_get_qty->bindParam(':id_carrinho', $id_carrinho, PDO::PARAM_INT);
@@ -42,7 +40,6 @@ $total_atual = $stmt_get_qty->fetchColumn();
 
 $nova_quantidade = $total_atual + $quantidade;
 
-// Atualizar ou inserir a quantidade total
 $sql_update = "UPDATE rl_carrinho_produto SET qtde = :quantidade WHERE id_carrinho = :id_carrinho AND id_produto = :id_produto";
 $stmt_update = $conn->prepare($sql_update);
 $stmt_update->bindParam(':id_carrinho', $id_carrinho, PDO::PARAM_INT);

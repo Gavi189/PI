@@ -1,10 +1,15 @@
 <?php
 require_once '../headers.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
 $postfields = json_decode(file_get_contents('php://input'), true);
 $id_cliente = $postfields['id_cliente'] ?? null;
 $id_produto = $postfields['id_produto'] ?? null;
-$delta = $postfields['quantidade'] ?? null; // Recebe incremento/decremento
+$delta = $postfields['quantidade'] ?? null;
 
 if (empty($id_cliente) || empty($id_produto) || empty($delta) || !is_numeric($id_cliente) || !is_numeric($id_produto) || !is_numeric($delta)) {
     http_response_code(400);
@@ -12,7 +17,6 @@ if (empty($id_cliente) || empty($id_produto) || empty($delta) || !is_numeric($id
     exit;
 }
 
-// Verificar se o carrinho existe para o cliente
 $sql_check = "SELECT id_carrinho FROM carrinhos WHERE id_cliente = :id_cliente";
 $stmt_check = $conn->prepare($sql_check);
 $stmt_check->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
@@ -27,7 +31,6 @@ if (!$carrinho) {
 
 $id_carrinho = $carrinho->id_carrinho;
 
-// Obter a quantidade atual total para o produto
 $sql_get_total = "SELECT COALESCE(SUM(qtde), 0) as total_quantidade FROM rl_carrinho_produto WHERE id_carrinho = :id_carrinho AND id_produto = :id_produto";
 $stmt_get_total = $conn->prepare($sql_get_total);
 $stmt_get_total->bindParam(':id_carrinho', $id_carrinho, PDO::PARAM_INT);
@@ -37,7 +40,6 @@ $total_atual = $stmt_get_total->fetchColumn();
 
 $nova_quantidade = max(0, $total_atual + $delta);
 
-// Atualizar a quantidade total
 $sql_update = "UPDATE rl_carrinho_produto SET qtde = :quantidade WHERE id_carrinho = :id_carrinho AND id_produto = :id_produto";
 $stmt_update = $conn->prepare($sql_update);
 $stmt_update->bindParam(':id_carrinho', $id_carrinho, PDO::PARAM_INT);
