@@ -1,4 +1,5 @@
 import { ICart, CartResponse, CartItemResponse } from "@/interfaces/ICart";
+import { IProduct } from "@/interfaces/IProduct";
 
 export const fetchCart = async (
   id_cliente: number,
@@ -16,7 +17,7 @@ export const fetchCart = async (
   );
   const data: CartResponse = await response.json();
   if (data.status !== "success") throw new Error(data.message);
-  // Mapeia a estrutura aninhada da API para ICart
+
   const cartItems = data.data.items.flatMap((item) =>
     item.produtos.map((p: CartItemResponse) => ({
       product: {
@@ -27,10 +28,11 @@ export const fetchCart = async (
         imagem: p.imagem || "",
         preco: p.preco,
         marca: p.marca,
-      },
+      } as IProduct,
       quantity: p.quantidade,
     }))
   );
+
   return {
     items: cartItems,
     total: data.data.total,

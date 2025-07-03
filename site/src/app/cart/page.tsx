@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+
 import { ICart } from "@/interfaces/ICart";
 import { fetchCart } from "@/services/cart/get";
 import { updateCartQuantity } from "@/services/cart/put";
@@ -15,7 +16,7 @@ export default function CartPage() {
     if (status === "authenticated" && session?.user?.id) {
       fetchCart(parseInt(session.user.id), session.user.token)
         .then(setCart)
-        .catch((error) => console.error("Erro ao carregar carrinho:", error));
+        .catch(() => console.error("Erro ao carregar carrinho:"));
     }
   }, [status, session]);
 
@@ -59,11 +60,13 @@ export default function CartPage() {
   };
 
   if (status === "loading") {
-    return <div className="container mt-5">Carregando...</div>;
+    return <div className="container mx-auto mt-10">Carregando...</div>;
   }
 
   if (status === "unauthenticated") {
-    return <div className="container mt-5">Por favor, faça login.</div>;
+    return (
+      <div className="container mx-auto mt-10">Por favor, faça login.</div>
+    );
   }
 
   return (
