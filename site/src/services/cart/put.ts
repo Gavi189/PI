@@ -1,13 +1,15 @@
 export const updateCartQuantity = async (
   id_cliente: number,
   id_produto: number,
-  delta: number
+  delta: number,
+  token?: string
 ): Promise<void> => {
   try {
-    const response = await fetch("/api/carrinho/put.php", {
+    const response = await fetch("http://localhost:8080/carrinho/put.php", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
       },
       body: JSON.stringify({
         id_cliente,

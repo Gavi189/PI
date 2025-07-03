@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { IProduct } from "@/interfaces/IProduct";
-import { fetchProducts } from "@/services/api/product/get";
+import { fetchProducts } from "@/services/product/get";
 import ProductList from "@/components/layout/product/product-list";
 import { BannerHome } from "@/components/layout/banner";
 

@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { IProduct } from "@/interfaces/IProduct";
-import { fetchProducts } from "@/services/api/product/get";
-import { addToCart } from "@/services/api/cart/post";
+import { fetchProducts } from "@/services/product/get";
+import { addToCart } from "@/services/cart/post";
 
 const PageProduct = () => {
   const params = useParams();

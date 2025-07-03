@@ -1,6 +1,7 @@
 export const removeFromCart = async (
   id_cliente: number,
-  id_produto: number
+  id_produto: number,
+  token?: string
 ): Promise<void> => {
   const response = await fetch(
     `http://localhost:8080/carrinho/delete.php?id_cliente=${id_cliente}&id_produto=${id_produto}`,
@@ -8,8 +9,9 @@ export const removeFromCart = async (
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
       },
     }
   );
-  if (!response.ok) throw new Error("Failed to remove from cart");
+  if (!response.ok) throw new Error("Falha ao remover do carrinho");
 };

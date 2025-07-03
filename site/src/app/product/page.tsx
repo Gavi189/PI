@@ -2,7 +2,7 @@
 
 import ProductList from "@/components/layout/product/product-list";
 import { IProduct } from "@/interfaces/IProduct";
-import { fetchProducts } from "@/services/api/product/get";
+import { fetchProducts } from "@/services/product/get";
 import { useEffect, useState } from "react";
 
 const HomeProduct = () => {

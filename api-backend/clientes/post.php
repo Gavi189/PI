@@ -10,6 +10,7 @@ try {
         $cpf = $postfields['cpf'] ?? null;
         $imagem = $postfields['imagem'] ?? null;
         $email = $postfields['email'] ?? null;
+        $senha = sha1($postfields['senha']) ?? null;
         $whatsapp = $postfields['whatsapp'] ?? null;
         $logradouro = $postfields['endereco']['logradouro'] ?? null;
         $numero = $postfields['endereco']['numero'] ?? null;
@@ -26,12 +27,13 @@ try {
         }
 
         $sql = "
-        INSERT INTO clientes (nome, imagem, cpf, email, whatsapp, logradouro, numero, complemento, bairro, cidade, estado, cep) VALUES 
+        INSERT INTO clientes (nome, imagem, cpf, email, senha, whatsapp, logradouro, numero, complemento, bairro, cidade, estado, cep) VALUES 
         (
             :nome, 
             :imagem, 
             :cpf,
             :email,
+            :senha,
             :whatsapp,
             :logradouro, 
             :numero, 
@@ -47,6 +49,7 @@ try {
         $stmt->bindParam(':imagem', $imagem, is_null($imagem) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindParam(':cpf', $cpf, is_null($cpf) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, is_null($email) ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
         $stmt->bindParam(':whatsapp', $whatsapp, is_null($whatsapp) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindParam(':logradouro', $logradouro);
         $stmt->bindParam(':numero', $numero);

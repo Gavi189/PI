@@ -52,6 +52,29 @@ try {
         // Vincular o parâmetro :cidade com o valor da variável $cidade
         $stmt->bindValue(':cidade', '%' . $cidade . '%', PDO::PARAM_STR);
 
+    }// Verifica se há um EMAIL e SENHA na URL para consulta
+    elseif (
+        isset($_GET["email"]) && is_string($_GET["email"]) &&
+        isset($_GET["senha"]) && is_string($_GET["senha"])
+    ) {
+        $email = trim($_GET["email"]);
+        $senha = sha1(trim($_GET["senha"]));
+
+        // Monta a sintaxe SQL de busca
+        $sql = "
+            SELECT * 
+            FROM clientes
+            WHERE email LIKE :email
+            AND senha LIKE :senha
+        ";
+
+        // Preparar a sintaxe SQL
+        $stmt = $conn->prepare($sql);
+        // Vincular o parâmetro :email com o valor da variável $email
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        // Vincular o parâmetro :senha com o valor da variável $senha
+        $stmt->bindValue(':senha', $senha, PDO::PARAM_STR);
+
     }
     else {
         // Monta a sintaxe SQL de busca

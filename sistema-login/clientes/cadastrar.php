@@ -36,6 +36,7 @@ try {
             "nome" => $_POST["clientName"],
             "cpf" => $_POST["clientCPF"],
             "email" => $_POST["clientEmail"],
+            "senha" => sha1($_POST["clientPassword"]),
             "whatsapp" => $_POST["clientWhatsapp"],
             "imagem" => $_POST["clientImage"],
             "endereco" => array (
@@ -57,6 +58,7 @@ try {
             "nome" => $_POST["clientName"],
             "cpf" => $_POST["clientCPF"],
             "email" => $_POST["clientEmail"],
+            "senha" => sha1($_POST["clientPassword"]),
             "whatsapp" => $_POST["clientWhatsapp"],
             "imagem" => $_POST["clientImage"],
             "endereco" => array (

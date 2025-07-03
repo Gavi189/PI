@@ -48,7 +48,7 @@ if (isset($_GET["key"])) {
                             <a href="/clientes/formulario.php" class="btn btn-secondary btn-sm float-left">Novo</a>
                             <a href="/clientes/exportar.php" class="btn btn-success btn-sm float-left">Excel</a>
                             <a href="/clientes/exportar_pdf.php" class="btn btn-danger btn-sm float-left">PDF</a>
-                        </div>                            
+                        </div>
                     </div>
                     <div class="card-body">
                         <!-- Tabela de clientes cadastrados -->
@@ -60,6 +60,7 @@ if (isset($_GET["key"])) {
                                     <th scope="col">Nome</th>
                                     <th scope="col">CPF</th>
                                     <th scope="col">E-mail</th>
+                                    <th scope="col">Senha</th>
                                     <th scope="col">Whatsapp</th>
                                     <th scope="col">Ações</th>
                                 </tr>
@@ -79,6 +80,7 @@ if (isset($_GET["key"])) {
                                                 <td>'.$client["nome"].'</td>
                                                 <td>'.$client["cpf"].'</td>
                                                 <td>'.$client["email"].'</td>
+                                                <td>'.(isset($client["senha"]) ? "******" : "N/A").'</td>
                                                 <td>'.$client["whatsapp"].'</td>
                                                 <td>
                                                 <a href="/clientes/formulario.php?key='.$client["id_cliente"].'" class="btn btn-warning">Editar</a>

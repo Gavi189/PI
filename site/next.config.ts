@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async rewrites() {
     return [
+      // NÃO redireciona rotas de autenticação do NextAuth!
+      {
+        source: "/api/auth/:path*",
+        destination: "/api/auth/:path*",
+      },
+      // Redireciona o restante normalmente
       {
         source: "/api/:path*",
         destination: "http://localhost:8080/:path*",
