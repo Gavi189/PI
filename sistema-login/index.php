@@ -2,7 +2,7 @@
 if (!session_id()) {
     session_start();
 }
-include "C:/Next/PI/sistema-login/verificar-autenticacao.php";
+include "../sistema-login/verificar-autenticacao.php";
 $pagina = "home";
 ?>
 
@@ -18,8 +18,8 @@ $pagina = "home";
 </head>
 
 <body>
-    <?php include "C:/Next/PI/sistema-login/mensagens.php"; ?>
-    <?php include "C:/Next/PI/sistema-login/navbar.php"; ?>
+    <?php include "../sistema-login/mensagens.php"; ?>
+    <?php include "../sistema-login/navbar.php"; ?>
 
     <div class="container mt-5">
         <div class="row">

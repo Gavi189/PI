@@ -2,7 +2,7 @@
 if (!session_id()) {
     session_start();
 }
-include "C:/Next/PI/sistema-login/verificar-autenticacao.php";
+include "../verificar-autenticacao.php"; 
 $pagina = "carrinho";
 ?>
 
@@ -19,8 +19,8 @@ $pagina = "carrinho";
 
 <body>
     <?php
-    include "C:/Next/PI/sistema-login/mensagens.php";
-    include "C:/Next/PI/sistema-login/navbar.php";
+    include "../mensagens.php"; 
+    include "../navbar.php"; 
     ?>
 
     <div class="container mt-5">
@@ -50,7 +50,7 @@ $pagina = "carrinho";
                             </thead>
                             <tbody>
                                 <?php
-                                require "C:/Next/PI/sistema-login/requests/carrinho/get.php";
+                                require "../requests/carrinho/get.php"; // Ajustado para o caminho correto
                                 if ($response['status'] === 'success' && !empty($response['data']['items'])) {
                                     foreach ($response['data']['items'] as $key => $item) {
                                         $quantidade_total = array_sum(array_column($item['produtos'], 'quantidade'));

@@ -2,8 +2,6 @@
 if (!session_id()) {
     session_start();
 }
-// Caminho absoluto temporário - ajuste conforme necessário
-include "C:/Next/PI/sistema-login/verificar-autenticacao.php";
 
 $url = 'http://localhost:8080/carrinho/get.php?id_cliente=all';
 
@@ -37,7 +35,7 @@ if ($response === false) {
             'data' => []
         ];
     } else {
-        error_log("Resposta da API: " . var_export($response, true)); // Log para depuração
+        error_log("Resposta da API: " . var_export($response, true)); 
     }
 }
 curl_close($curl);
