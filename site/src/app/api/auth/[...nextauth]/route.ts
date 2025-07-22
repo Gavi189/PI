@@ -52,22 +52,20 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.role = user.role;
-        token.token = user.token;
+        token.id = user.id ?? "";
+        token.email = user.email ?? "";
+        token.role = user.role ?? "";
+        token.token = user.token ?? "";
       }
       return token;
     },
     async session({ session, token }) {
-      if (token) {
-        session.user = {
-          id: token.id as string,
-          email: token.email as string,
-          role: token.role as string | undefined,
-          token: token.token as string | undefined,
-        };
-      }
+      session.user = {
+        id: (token.id as string) ?? "",
+        email: (token.email as string) ?? "",
+        role: (token.role as string) ?? "",
+        token: (token.token as string) ?? "",
+      };
       return session;
     },
   },

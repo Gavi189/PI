@@ -13,7 +13,38 @@ const PageProduct = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState<string | null>(null);
-  const id_cliente = 3; // Hardcoded for testing; replace with dynamic client ID from auth
+  const [id_cliente, setIdCliente] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchClienteId = async () => {
+      // Supondo que você tenha o email e password do usuário logado disponíveis
+      const email = localStorage.getItem("email");
+      const password = localStorage.getItem("password");
+      if (email && password) {
+        try {
+          const response = await fetch(
+            `http://localhost:8080/clientes/?email=${encodeURIComponent(
+              email
+            )}&password=${encodeURIComponent(password)}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const data = await response.json();
+          if (data && data.id_cliente) {
+            setIdCliente(data.id_cliente);
+          }
+        } catch (err) {
+          setError("Erro ao obter o cliente.");
+          console.error(err);
+        }
+      }
+    };
+    fetchClienteId();
+  }, []);
 
   useEffect(() => {
     const loadProduct = async () => {
