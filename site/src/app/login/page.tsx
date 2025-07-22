@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Carousel } from "antd";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -19,6 +20,9 @@ export default function LoginPage() {
       password,
       redirect: false,
     });
+
+    console.log("Login result:", result);
+    console.log("Email:", email, "Password:", password);
 
     if (result?.error) {
       setMessage(result.error);
@@ -80,6 +84,7 @@ export default function LoginPage() {
             Entrar
           </button>
         </form>
+        <Carousel />
       </div>
     </div>
   );

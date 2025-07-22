@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
         const response = await fetch(
           `http://localhost:8080/clientes/?email=${encodeURIComponent(
             email
-          )}&password=${encodeURIComponent(password)}`,
+          )}&senha=${encodeURIComponent(password)}`,
           {
             method: "GET",
             headers: {

@@ -80,7 +80,7 @@ if (isset($_GET["key"])) {
                                             <td>'.$product["produto"].'</td>
                                             <td class="text-center">'.$product["marca"].'</td>
                                             <td class="text-center">'.$product["quantidade"].'</td>
-                                            <td class="text-center">R$ '.number_format($product["preco"],2,',','.').'</td>
+                                            <td class="text-center">R$ '.number_format($product["preco"] ?? 0,2,',','.').'</td>
                                             <td>
                                                 <a href="/produtos/formulario.php?key='.$product["id_produto"].'" class="btn btn-warning">Editar</a>
                                                 <a href="/produtos/remover.php?key='.$product["id_produto"].'" class="btn btn-danger">Excluir</a>

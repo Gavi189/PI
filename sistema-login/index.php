@@ -68,7 +68,7 @@ $pagina = "home";
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body text-center">
-                                <i class="bi bi-gift" style="font-size: 2rem;"></i>
+                                <i class="bi bi-cart" style="font-size: 2rem;"></i>
                                 <h5 class="card-title mt-2">Carrinho
                                     <?php require("requests/carrinho/get.php"); ?>
                                     (<?php echo isset($response['data']['items']) ? count($response['data']['items']) : 0; ?>)

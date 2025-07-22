@@ -18,6 +18,8 @@ export default function CartPage() {
         .then(setCart)
         .catch(() => console.error("Erro ao carregar carrinho:"));
     }
+    // Adicione este log para inspecionar o conteúdo real do session
+    console.log("Session status:", status, "Session user:", session?.user);
   }, [status, session]);
 
   const handleUpdateQuantity = async (id_produto: number, delta: number) => {

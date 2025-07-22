@@ -13,7 +13,7 @@ if($_POST) {
     
     // VERIFICA SE O EMAIL E SENHA ESTÃO CORRETOS
     require("requests/login/get.php");
-    // var_dump($response);exit;
+    //var_dump($response);exit;
     if (isset($response['status']) && $response['status'] == "success") {
         $_SESSION["autenticado"] = true; // CRIA VARIÁVEL GLOBAL
         $_SESSION["tempo_login"] = time(); // CRIA VARIÁVEL COM TEMPO DE LOGIN

@@ -1,6 +1,7 @@
+import LogoutPage from "@/app/logout/page";
 import Link from "next/link";
 
-const Heather = () => {
+const Header = () => {
   return (
     <header className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
@@ -57,6 +58,7 @@ const Heather = () => {
                 Carrinho
               </a>
             </li>
+            <LogoutPage></LogoutPage>
           </ul>
         </nav>
       </div>
@@ -64,4 +66,4 @@ const Heather = () => {
   );
 };
 
-export default Heather;
+export default Header;
